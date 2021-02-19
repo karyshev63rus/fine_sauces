@@ -9,4 +9,4 @@ df.sqlite3-journal
 media
 env
 local_settings.py
-
+.idea

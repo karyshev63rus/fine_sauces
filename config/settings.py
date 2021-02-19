@@ -5,13 +5,6 @@ import os
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
-#SECRET_KEY = SECRET_KEY
-
-#DEBUG = DEBUG
-
-#ALLOWED_HOSTS = ALLOWED_HOSTS
-
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -19,6 +12,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'listings.apps.ListingsConfig',
 ]
 
 MIDDLEWARE = [
@@ -52,9 +46,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-#DATABASES = DATABASES
-
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -81,11 +72,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 try:
     from .local_settings import *
 except ImportError:
-  print('Error!') 
-
+    pass

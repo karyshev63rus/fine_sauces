@@ -8,6 +8,8 @@ django = "==3.1"
 psycopg2-binary = "*"
 pillow = "*"
 python-dotenv = "*"
+stripe = "*"
+celery = "==4.*"
 
 [dev-packages]
 

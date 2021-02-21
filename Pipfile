@@ -10,6 +10,7 @@ pillow = "*"
 python-dotenv = "*"
 stripe = "*"
 celery = "==4.*"
+weasyprint = "*"
 
 [dev-packages]
 

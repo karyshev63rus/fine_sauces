@@ -1,13 +1,29 @@
 from .tasks import order_created
+from django.conf import settings
+from django.contrib.admin.views.decorators import staff_member_required
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.template.loader import render_to_string
 from .models import OrderItem, Order, Product
 from .forms import OrderCreateForm
-from django.conf import settings
 from cart.views import get_cart, cart_clear
 from decimal import Decimal
+import weasyprint
 import stripe
 
+
 stripe.api_key = settings.STRIPE_TEST_SECRET_KEY
+
+
+@staff_member_required
+def invoice_pdf(request,  order_id):
+    order = get_object_or_404(Order, id=order_id)
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'filename=order_{order.id}.pdf'
+    html = render_to_string('pdf.html', {'order': order})
+    stylesheets = [weasyprint.CSS(settings.STATIC_ROOT + 'css/pdf.css')]
+    weasyprint.HTML(string=html).write_pdf(response, stylesheets=stylesheets)
+    return response
 
 
 def order_create(request):

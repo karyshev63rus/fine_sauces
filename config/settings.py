@@ -6,6 +6,7 @@ import os
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 INSTALLED_APPS = [
+    'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -81,6 +82,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 CART_ID = 'cart'
+
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'listings:product_list'
 
 try:
     from .local_settings import *

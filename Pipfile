@@ -11,6 +11,7 @@ python-dotenv = "*"
 stripe = "*"
 celery = "==4.*"
 weasyprint = "*"
+xlsxwriter = "*"
 
 [dev-packages]
 

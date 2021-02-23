@@ -1,5 +1,7 @@
 from django.db import models
 from listings.models import Product
+from django.conf import settings
+from django.urls import reverse
 
 
 ORDER_STATUS = [
@@ -17,6 +19,13 @@ TRANSPORT_CHOICES = [
 
 
 class Order(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='orders',
+        blank=True,
+        null=True
+    )
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()
@@ -43,6 +52,12 @@ class Order(models.Model):
         total_cost = sum(item.get_cost() for item in self.items.all())
         total_cost += self.transport_cost
         return  total_cost
+
+    def get_absolute_url(self):
+        return reverse(
+            'orders:order_detail',
+            args=[self.id]
+        )
 
 
 class OrderItem(models.Model):
